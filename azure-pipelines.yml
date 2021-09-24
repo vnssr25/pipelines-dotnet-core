@@ -14,7 +14,7 @@ variables:
   buildConfiguration: 'Release'
 
 stages:
-  - stage: Build
+  - stage: Build_stage
     displayName: Build Step
     jobs:
       - job: webApp
@@ -41,11 +41,31 @@ stages:
              inputs:
                command: 'publish'
                publishWebProjects: true
-               arguments: '--configuration $(BuildConfiguration) --output $(build.artifactstagingdirectory)'
+               arguments: '--configuration $(BuildConfiguration) --output $(build.artifactstagingdirectory)/webapp'
            
            - task: PublishBuildArtifacts@1
              inputs:
-               PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+               PathtoPublish: '$(Build.ArtifactStagingDirectory)/webapp'
                ArtifactName: 'drop'
                publishLocation: 'Container'
-          
+
+  - stage: Deploy_stage
+    displayName: Deploy Stage
+    dependsOn: Build_stage
+    jobs:
+      - deployment: DeployWebApp
+        displayName: DeployWebAPP
+        pool:
+          name: Hosted Windows 2019 with VS2019 
+          vmImage: windows-2019
+        environment: devenv
+        strategy:
+         runOnce:
+           deploy:
+             steps:
+               - script: echo my first deployment
+              
+        
+         
+        
+
