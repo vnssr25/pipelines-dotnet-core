@@ -6,9 +6,9 @@
 trigger:
 - master
 
-pool:
- name: image
- vmImage: windows-2019
+# pool:
+#  name: image
+#  vmImage: windows-2019
 
 variables:
   buildConfiguration: 'Release'
@@ -20,8 +20,9 @@ stages:
       - job: webApp
         displayName: Build WebAPP
         pool:
-          name: image
+          name: Hosted Windows 2019 with VS2019 
           vmImage: windows-2019 
+
         variables:
           buildConfiguration: 'Release'
 
