@@ -61,7 +61,7 @@ stages:
         environment: devenv
         strategy:
          runOnce:
-           deploy:
+          deploy:
              steps:
                - script: echo my first deployment
               
