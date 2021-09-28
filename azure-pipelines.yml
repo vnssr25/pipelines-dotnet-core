@@ -64,7 +64,12 @@ stages:
           deploy:
              steps:
                - script: echo my first deployment
-              
+               - pwsh: |
+                   Write-Host "Mulitline Script1"
+                   Write-Host "Mulitline Script2"
+               - checkout: 
+                  
+            
         
          
         
